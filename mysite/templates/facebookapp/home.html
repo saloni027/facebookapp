@@ -1,0 +1,36 @@
+{% extends 'facebookapp/base.html' %}
+
+{% block tile %} home - My App {% endblock %}
+{% block content %}
+<div class="row">
+    {% if user.is_authenticated %}
+    <div class="col-sm-12">
+          <h4 class="text-center">Hey! I am {{ user.first_name }} {{ user.last_name }}</h4>
+    </div>
+
+
+</div>
+    {% endif %}
+    {% for ass in backends.associated %}
+          {% if ass.provider == 'facebook' %}
+
+<div class="row">
+
+    <div class="col-sm-12 text-center">
+                <img src="{{ass.extra_data.picture.data.url}}" alt="" width="150" height="150" style="border-radius: 50%">
+          </div>
+
+
+</div>
+
+          {% endif %}
+    {% endfor %}
+
+          <div class="col-sm-12 social-container my-2">
+
+            <a href="{% url 'logout' %}" class="btn btn-block  btn-facebook buttons" id="logout-button">Log me out</a>
+            <a href="{% url 'deactivate' %}" class="btn btn-block  btn-facebook buttons">Deactivate My Account</a>
+
+          </div>
+</div>
+{% endblock %}
